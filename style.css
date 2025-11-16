@@ -19,10 +19,11 @@
     width: 90%; 
     height: auto;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #c91c1c;
-    padding: 20px 0; 
+    padding: 20px 0;
+    background-color: blue; 
 }
 
 .left {
@@ -78,7 +79,7 @@
         order: 1; 
         width: 30%;
         height: 100vh;
-        padding: 0;
+        padding: 20px;
     }
     
     .left {
@@ -96,4 +97,135 @@
         max-width: 900px; 
         aspect-ratio: 16 / 9; 
     }
+    
+
 }
+
+.panel-workers-list {
+    overflow-y: scroll; 
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; 
+    width: 80%;
+    height: 600px;
+    flex-grow: 1; 
+}
+
+.worker-card {
+    width: 100%; 
+    height: 100px;
+    background-color: #ffffff;
+    
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.worker-card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+    background-color: #f9f9ff;
+    border-color: #a5b4fc;
+}
+
+/* --- Worker Image --- */
+.worker-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    border: 2px solid #6366f1;
+}
+
+/* --- Worker Info --- */
+.worker-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+    justify-content: center;
+    overflow: hidden;
+    line-height: 1.1;
+    flex-grow: 1;
+}
+
+.worker-name {
+    font-weight: 700; 
+    font-size: 13px;
+    margin: 0;
+    color: #1f2937;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.worker-role {
+    color: #6b7280; 
+    margin: 0;
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.worker-email, .worker-phone {
+    display: flex; 
+}
+
+.worker-card::after {
+    content: '→'; 
+    color: #6366f1;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.panel-header {
+    width: 80%;
+    margin-top: 10px;
+}
+
+#addNewWorkerBtn {
+    width: 100%;
+    padding: 12px 15px; 
+    border: none;
+    border-radius: 10px;
+    
+    background-image: linear-gradient(to right, #6366f1, #4f46e5);
+    color: #ffffff;
+    
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+}
+
+#addNewWorkerBtn i {
+    font-size: 18px;
+}
+
+#addNewWorkerBtn:hover {
+    background-image: linear-gradient(to right, #4f46e5, #4338ca);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+#addNewWorkerBtn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+/*button add workers*/
