@@ -23,7 +23,7 @@
     justify-content: center;
     align-items: center;
     padding: 20px 0;
-    background-color: blue; 
+    gap: 20px;
 }
 
 .left {
@@ -38,7 +38,7 @@
 
 .rooms {
     width: 100%;
-    aspect-ratio: 4 / 3; 
+    aspect-ratio: 16 / 10; 
     position: relative;
     display: grid;
     grid-template-columns: 38fr 16fr 22fr 23fr ;
@@ -55,10 +55,34 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none;
+    /* pointer-events: none; */
     z-index: 0;
 }
-.R{ color: white; z-index: 1;}
+.R{ 
+    color: white; 
+    z-index: 1;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+
+.R button {
+    padding: 2px 4px;
+    background-color: rgba(255, 255, 255, 0.85); 
+    border: 1px solid #0000008a;
+    border-radius: 8px;
+    font-weight: small;
+    cursor: pointer;
+    opacity: 0.9;
+    transition: all 0.2s;
+}
+
+
+.R button:hover {
+    background-color: #ffffff;
+    opacity: 1;
+    transform: scale(1.05); 
+}
 .room-one{ grid-area: room-one; background-color: rgba(65, 24, 199, 0.476);}
 .room-two{ grid-area: room-two; background-color: rgba(13, 171, 145, 0.476);}
 .room-three{ grid-area: room-three; background-color: rgba(199, 24, 24, 0.476);}
@@ -95,14 +119,17 @@
     .rooms {
         width: 90%; 
         max-width: 900px; 
-        aspect-ratio: 16 / 9; 
+        aspect-ratio: 24 / 16; 
     }
-    
-
+    .R button {
+        padding: 4px 8px;
+        border-radius: 8px;
+        font-weight: bold;
+    }
 }
 
 .panel-workers-list {
-    overflow-y: scroll; 
+    overflow-y: auto; 
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -176,11 +203,11 @@
 }
 
 .worker-email, .worker-phone {
-    display: flex; 
+    display: none; 
 }
 
 .worker-card::after {
-    content: '→'; 
+    /* content: '→';  */
     color: #6366f1;
     font-weight: bold;
     margin-left: 10px;
@@ -190,6 +217,8 @@
     width: 80%;
     margin-top: 10px;
 }
+
+/*button add workers*/
 
 #addNewWorkerBtn {
     width: 100%;
@@ -228,4 +257,28 @@
     transform: translateY(0);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-/*button add workers*/
+/* end button add workers*/
+
+/*style of scrool bar*/
+.panel-workers-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.panel-workers-list::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.panel-workers-list::-webkit-scrollbar-thumb {
+    background: #c7d2fe;
+    border-radius: 10px;
+}
+
+.panel-workers-list::-webkit-scrollbar-thumb:hover {
+    background: #a5b4fc;
+}
+
+.panel-workers-list {
+    scrollbar-width: thin;
+    scrollbar-color: #a5b4fc #f0f0f0;
+}
