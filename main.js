@@ -1,64 +1,218 @@
+document.addEventListener('DOMContentLoaded', () => {
 
-/* from for create new Worker */
-const addNewWorkerBtn = document.getElementById('addNewWorkerBtn');
-const addWorkerModal = document.getElementById('addWorkerModal');
-const cancelBtn = document.getElementById('btnCancel');
+    const FormOf_ADD_worker = document.getElementById('FormOf_ADD_worker');
+    const addNew_WorkerButton = document.getElementById('addNew_WorkerButton');
+    const btnCancel = document.getElementById('btnCancel');
+    const workerForm = document.getElementById('workerForm');
 
-addNewWorkerBtn.addEventListener('click', () => {
-    addWorkerModal.classList.remove('hidden');
-});
+    const imageInput = document.getElementById('Input-image');
+    const imagePreviewBox = document.querySelector('.imageWorker');
 
-cancelBtn.addEventListener('click', () => {
-    addWorkerModal.classList.add('hidden');
-});
-
-addWorkerModal.addEventListener('click', (event) => {
-    if (event.target === addWorkerModal) {
-        addWorkerModal.classList.add('hidden');
-    }
-});
-
-const addExperienceBtn = document.getElementById('addExperienceBtn');
-const experiencesContainer = document.getElementById('experiencesContainer');
-
-addExperienceBtn.addEventListener('click', () => {
+    const experiencesContainer = document.getElementById('experiencesContainer');
+    const addExperienceBtn = document.getElementById('addExperienceBtn');
     
-    const newRow = document.createElement('div');
-    newRow.classList.add('experience-row');
+    // display form or NOT display
+    let experienceCounter = 1;
+    addNew_WorkerButton.addEventListener('click', () => {
+        FormOf_ADD_worker.classList.remove('hidden');
+    });
 
-    newRow.innerHTML = `
-        <input type="text" placeholder="Experience Title" class="exp-title">
-        <input type="text" placeholder="Duration (e.g., 2 years)" class="exp-duration">
-        <button type="button" class="remove-exp-btn">X</button>
-    `;
+    btnCancel.addEventListener('click', () => {
+        FormOf_ADD_worker.classList.add('hidden');
+    });
 
-    experiencesContainer.appendChild(newRow);
-});
+    FormOf_ADD_worker.addEventListener('click', (event) => {
+        if (event.target === FormOf_ADD_worker) {
+            FormOf_ADD_worker.classList.add('hidden');
+        }
+    });
 
 
-experiencesContainer.addEventListener('click', (event) => {
-    if (event.target.classList.contains('remove-exp-btn')) {
-        const rowToRemove = event.target.parentElement;
-        rowToRemove.remove();
+    imageInput.addEventListener('input', () => {
+        const imageUrl = imageInput.value;
+        if (imageUrl) {
+            imagePreviewBox.style.backgroundImage = `url(${imageUrl})`;
+        } else {
+            imagePreviewBox.style.backgroundImage = '';
+        }
+    });
+
+    function checkName() {
+        const nameInput = document.getElementById('Input-name');
+        const errorDiv = document.getElementById('errorNameMessage');
+        
+        if (nameInput.value.trim().length < 3) {
+            errorDiv.textContent = 'Full name must be at least 3 characters.';
+            nameInput.classList.add('input-error');
+            return false;
+        } else {
+            errorDiv.textContent = '';
+            nameInput.classList.remove('input-error');
+            return true;
+        }
     }
-});
 
-
-/* imge url input */
-
-const imageInput = document.getElementById('Input-image');
-const imagePreviewBox = document.querySelector('.imageWorker');
-
-imageInput.addEventListener('input', () => {
-    
-    const imageUrl = imageInput.value;
-
-    if (imageUrl) {
-        imagePreviewBox.style.backgroundImage = `url(${imageUrl})`;
-    } else {
-        imagePreviewBox.style.backgroundImage = '';
+    function checkRole() {
+        const roleInput = document.getElementById('Input-role');
+        const errorDiv = document.getElementById('errorRoleMessage');
+        
+        if (roleInput.value === "") {
+            errorDiv.textContent = 'Please select a role.';
+            roleInput.classList.add('input-error');
+            return false;
+        } else {
+            errorDiv.textContent = '';
+            roleInput.classList.remove('input-error');
+            return true;
+        }
     }
-});
 
-/* end imge url input */
-/* end of from for create new Worker */
+    function checkEmail() {
+        const emailInput = document.getElementById('Input-email');
+        const errorDiv = document.getElementById('errorEmailMessage');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (emailInput.value.length > 0 && !emailRegex.test(emailInput.value)) {
+            errorDiv.textContent = 'Invalid email format.';
+            emailInput.classList.add('input-error');
+            return false;
+        } else {
+            errorDiv.textContent = '';
+            emailInput.classList.remove('input-error');
+            return true;
+        }
+    }
+
+    function checkPhone() {
+        const telInput = document.getElementById('Input-telephone');
+        const errorDiv = document.getElementById('errorTeleMessage');
+        const phoneRegex = /^[0-9]{8,15}$/; 
+        if (telInput.value.length > 0 && !phoneRegex.test(telInput.value)) {
+            errorDiv.textContent = 'Phone must be 8-15 digits.';
+            telInput.classList.add('input-error');
+            return false;
+        } else {
+            errorDiv.textContent = '';
+            telInput.classList.remove('input-error');
+            return true;
+        }
+    }
+
+    function checkExperiences() {
+        let allExperiencesAreValid = true;
+        const allBlocks = document.querySelectorAll('.experience-block');
+        
+        allBlocks.forEach((block) => {
+            // inputs 
+            const titleInput = block.querySelector('.exp-title');
+            const startDateInput = block.querySelector('.exp-start-date');
+            const endDateInput = block.querySelector('.exp-end-date');
+            
+            // display error msg
+            const titleErrorDiv = block.querySelector('.error-message');
+            const dateErrorDiv = block.querySelector('.date-pair-error');
+            
+            if (titleInput.value.trim() === "") {
+                titleErrorDiv.textContent = 'Experience name is required.';
+                titleInput.classList.add('input-error');
+                allExperiencesAreValid = false;
+            } else {
+                titleErrorDiv.textContent = '';
+                titleInput.classList.remove('input-error');
+            }
+            
+            if (startDateInput.value === "" || endDateInput.value === "") {
+                dateErrorDiv.textContent = 'Start and End dates are required.';
+                if (startDateInput.value === "") 
+                    startDateInput.classList.add('input-error');
+                if (endDateInput.value === "") 
+                    endDateInput.classList.add('input-error');
+                allExperiencesAreValid = false;
+            } 
+            else if (new Date(endDateInput.value) < new Date(startDateInput.value)) {
+                dateErrorDiv.textContent = 'End day cannot be before Start day.';
+                startDateInput.classList.add('input-error');
+                endDateInput.classList.add('input-error');
+                allExperiencesAreValid = false;
+            } 
+            else {
+                dateErrorDiv.textContent = '';
+                startDateInput.classList.remove('input-error');
+                endDateInput.classList.remove('input-error');
+            }
+        });
+        
+        return allExperiencesAreValid;
+    }
+
+    document.getElementById('Input-name').addEventListener('input', checkName);
+    document.getElementById('Input-role').addEventListener('change', checkRole);
+    document.getElementById('Input-email').addEventListener('input', checkEmail);
+    document.getElementById('Input-telephone').addEventListener('input', checkPhone);
+
+    document.querySelectorAll('.experience-block').forEach(block => {
+        block.addEventListener('input', checkExperiences);
+    });
+
+    addExperienceBtn.addEventListener('click', () => {
+        experienceCounter++; 
+
+        const newBlock = document.createElement('div');
+        newBlock.classList.add('experience-block');
+        
+        newBlock.innerHTML = `
+            <div class="input-block">
+                <label for="exp-title-${experienceCounter}">Experience Name</label>
+                <input id="exp-title-${experienceCounter}" type="text" class="exp-title">
+                <div id="errorExpTitle${experienceCounter}" class="error-message"></div>
+            </div>
+            
+            <div class="date-pair">
+                <div class="input-block date-input-group">
+                    <label for="exp-start-${experienceCounter}">Start day</label>
+                    <input id="exp-start-${experienceCounter}" type="date" class="exp-start-date">
+                </div>
+                <div class="input-block date-input-group">
+                    <label for="exp-end-${experienceCounter}">End day</label>
+                    <input id="exp-end-${experienceCounter}" type="date" class="exp-end-date">
+                </div>
+            </div>
+            <div id="errorExpDate${experienceCounter}" class="error-message date-pair-error"></div>
+            
+            <button type="button" class="remove-exp-btn">X Remove</button>
+        `;
+        
+        experiencesContainer.appendChild(newBlock);
+
+        newBlock.addEventListener('input', checkExperiences);
+    });
+
+    experiencesContainer.addEventListener('click', (event) => {
+        if (event.target.classList.contains('remove-exp-btn')) {
+            event.target.closest('.experience-block').remove();
+            checkExperiences();
+        }
+    });
+
+    workerForm.addEventListener('submit', (event) => {
+        event.preventDefault(); 
+        
+        const isNameValid = checkName();
+        const isRoleValid = checkRole();
+        const isEmailValid = checkEmail();
+        const isPhoneValid = checkPhone();
+        const areExperiencesValid = checkExperiences();
+        
+        if (isNameValid && isRoleValid && isEmailValid && isPhoneValid && areExperiencesValid) {
+            
+            console.log('Form is valid! Submitting data...');
+            
+            closeAndResetModal();
+            // save all data at local storige 
+
+        } else {
+            console.log('Form is invalid. Please check the errors.');
+        }
+    });
+
+});
