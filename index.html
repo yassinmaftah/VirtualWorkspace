@@ -15,7 +15,7 @@
         <div class="right">
             <!-- Pannel -->
              <div class="panel-header">
-                <button id="addNewWorkerBtn">
+                <button id="addNew_WorkerButton">
                     <i class="fas fa-plus-circle"></i> Add New Worker
                 </button>
             </div>
@@ -229,51 +229,87 @@
     </div>
 
     <!-- add worker form -->
-     <div id="addWorkerModal" class="background-form hidden">
-    
-        <div class="modal-form-container">
-            
-            <form id="workerForm">
-                <h3>Add New Worker</h3>
-                
-                <label for="name">Full Name</label>
-                <input id="Input-name" type="text" required>
 
+<div id="FormOf_ADD_worker" class="background-form hidden">
+    <div class="modal-form-container">
+        <form id="workerForm">
+            <h3>Add New Worker</h3>
+            
+            <div class="input-block">
+                <label for="Input-name">Full Name</label>
+                <input id="Input-name" type="text">
+                <div id="errorNameMessage" class="error-message"></div>
+            </div>
+            
+            <div class="input-block">
                 <label for="Input-role">Role</label>
                 <select id="Input-role">
-                    <option>Choice Role</option>
-                    <option value="receptionists">Receptionists</option>
-                    <option value="IT Technicians">Techniciens IT</option>
-                    <option value="Security">Security</option>
+                    <option value="">Choice Role</option>
+                    <option value="Receptionnistes">Receptionnistes</option>
+                    <option value="Techniciens_IT">Techniciens IT</option>
+                    <option value="sécurité">sécurité</option>
                     <option value="Manager">Manager</option>
-                    <option value="Cleaning">Cleaning</option>
+                    <option value="Nettoyage">Nettoyage</option>
                 </select>
-
+                <div id="errorRoleMessage" class="error-message"></div>
+            </div>
+            
+            <div class="input-block">
                 <label for="Input-image">Image URL</label>
                 <input id="Input-image" type="url">
-
-                <div class="imageWorker"></div>
-
+                <div id="errorURLMessage" class="error-message"></div>
+            </div>
+            
+            <div class="imageWorker"></div>
+            
+            <div class="input-block">
                 <label for="Input-email">Email</label>
                 <input id="Input-email" type="email">
-
+                <div id="errorEmailMessage" class="error-message"></div>
+            </div>
+            
+            <div class="input-block">
                 <label for="Input-telephone">Telephone</label>
                 <input id="Input-telephone" type="tel">
+                <div id="errorTeleMessage" class="error-message"></div>
+            </div>
 
-                <div id="experiencesContainer"></div>
-
-                <button type="button" id="addExperienceBtn">
-                    <i class="fas fa-plus"></i> Add Experience
-                </button>
-
-                <div class="form-buttons">
-                    <button type="submit" id="btnSubmitWorker">Submit</button>
-                    <button type="button" id="btnCancel">Cancel</button>
+            <div id="experiencesContainer">
+                
+                <div class="experience-block">
+                    <div class="input-block">
+                        <label for="exp-title-1">Experience Name</label>
+                        <input id="exp-title-1" type="text" class="exp-title">
+                        <div id="errorExpTitle1" class="error-message"></div>
+                    </div>
+                    
+                    <div class="date-pair">
+                        <div class="input-block date-input-group">
+                            <label for="exp-start-1">Start day</label>
+                            <input id="exp-start-1" type="date" class="exp-start-date">
+                        </div>
+                        <div class="input-block date-input-group">
+                            <label for="exp-end-1">End day</label>
+                            <input id="exp-end-1" type="date" class="exp-end-date">
+                        </div>
+                    </div>
+                    <div id="errorExpDate1" class="error-message date-pair-error"></div>
+                    
+                    </div>
+                
                 </div>
-            </form>
-
-        </div>
+            
+            <button type="button" id="addExperienceBtn">
+                <i class="fas fa-plus"></i> Add Another Experience
+            </button>
+            <div id="errorEXPMessage" class="error-message"></div> <div class="form-buttons">
+                <button type="submit" id="btnSubmitWorker">Submit</button>
+                <button type="button" id="btnCancel">Cancel</button>
+            </div>
+        </form>
     </div>
+</div>
+
     <!-- end of worker form -->
 
     <script src="main.js"></script>
