@@ -72,11 +72,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const errorDiv = document.getElementById('errorEmailMessage');
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        if (emailInput.value.length > 0 || !emailRegex.test(emailInput.value)) {
+
+        if (emailInput.value.length == 0)
+        {
+            errorDiv.textContent = 'Email input is empty';
+            emailInput.classList.add('input-error');
+            return false;
+        }
+        else if (!emailRegex.test(emailInput.value))
+        {
             errorDiv.textContent = 'Invalid email format.';
             emailInput.classList.add('input-error');
             return false;
-        } else {
+        }
+        else {
             errorDiv.textContent = '';
             emailInput.classList.remove('input-error');
             return true;
@@ -87,11 +96,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const telInput = document.getElementById('Input-telephone');
         const errorDiv = document.getElementById('errorTeleMessage');
         const phoneRegex = /^[0-9]{8,15}$/; 
-        if (telInput.value.length > 0 || !phoneRegex.test(telInput.value)) {
+        if (telInput.value.length == 0) {
+            errorDiv.textContent = 'phone Input is empty';
+            telInput.classList.add('input-error');
+            return false;
+        }
+        else if (!phoneRegex.test(telInput.value))
+        {
             errorDiv.textContent = 'Phone must be 8-15 digits.';
             telInput.classList.add('input-error');
             return false;
-        } else {
+        } 
+        else {
             errorDiv.textContent = '';
             telInput.classList.remove('input-error');
             return true;
@@ -207,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             console.log('Form is valid! Submitting data...');
             
-            closeAndResetModal();
+            // closeAndResetModal();
             // save all data at local storige 
 
         } else {
