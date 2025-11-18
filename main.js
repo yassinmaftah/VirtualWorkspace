@@ -67,6 +67,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function checkURL()
+    {
+        const URLinput = document.getElementById('Input-image');
+        const errorDiv = document.getElementById('errorURLMessage');
+        const URLRegex = /^(http|https):\/\/[^ "]+$/;
+
+
+        if (URLinput.value.length == 0)
+        {
+            errorDiv.textContent = 'url input is impty!';
+            URLinput.classList.add('input-error');
+            return false;
+        }
+        else if (!URLRegex.test(URLinput.value))
+        {
+            errorDiv.textContent = 'Invalid URL format (must start with http:// or https://).';
+            URLinput.classList.add('input-error');
+            return false;
+        }
+        else
+        {
+            errorDiv.textContent = '';
+            URLinput.classList.remove('input-error');
+            return true;
+        }
+    }
+
     function checkEmail() {
         const emailInput = document.getElementById('Input-email');
         const errorDiv = document.getElementById('errorEmailMessage');
@@ -163,6 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('Input-name').addEventListener('input', checkName);
     document.getElementById('Input-role').addEventListener('change', checkRole);
+    document.getElementById("Input-image").addEventListener('input', checkURL);
     document.getElementById('Input-email').addEventListener('input', checkEmail);
     document.getElementById('Input-telephone').addEventListener('input', checkPhone);
 
@@ -215,11 +243,12 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const isNameValid = checkName();
         const isRoleValid = checkRole();
+        const isURLValid = checkURL();
         const isEmailValid = checkEmail();
         const isPhoneValid = checkPhone();
         const areExperiencesValid = checkExperiences();
         
-        if (isNameValid && isRoleValid && isEmailValid && isPhoneValid && areExperiencesValid) {
+        if (isNameValid && isRoleValid && isEmailValid && isPhoneValid && areExperiencesValid && isURLValid) {
             
             console.log('Form is valid! Submitting data...');
             
