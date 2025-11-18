@@ -35,16 +35,53 @@
         </div>  
 
         <div class="left">
-            <div class="rooms">
-                <img class="image-rooms" src="rooms.png" alt="rooms">
-                <div class="room-one R"><button id="addToRoom"><span class="material-symbols-outlined">add</span></button></div>
-                <div class="room-two R"><button id="addToRoom"><span class="material-symbols-outlined">add</span></button></div>
-                <div class="room-three R"><button id="addToRoom"><span class="material-symbols-outlined">add</span></button></div>
-                <div class="room-four R"><button id="addToRoom"><span class="material-symbols-outlined">add</span></button></div>
-                <div class="room-five R"><button id="addToRoom"><span class="material-symbols-outlined">add</span></button></div>
-                <div class="room-six R"><button id="addToRoom"><span class="material-symbols-outlined">add</span></button></div>
-            </div>
+    <div class="rooms">
+        <img class="image-rooms" src="rooms.png" alt="rooms">
+
+        <div class="room-one R" id="room-1">
+            <div class="room-workers-container"></div>
+            <button class="add-to-room-btn" data-room-id="room-1">
+                <span class="material-symbols-outlined">add</span>
+            </button>
         </div>
+
+        <div class="room-two R" id="room-2">
+            <div class="room-workers-container"></div>
+            <button class="add-to-room-btn" data-room-id="room-2">
+                <span class="material-symbols-outlined">add</span>
+            </button>
+        </div>
+
+        <div class="room-three R" id="room-3">
+            <div class="room-workers-container"></div>
+            <button class="add-to-room-btn" data-room-id="room-3">
+                <span class="material-symbols-outlined">add</span>
+            </button>
+        </div>
+
+        <div class="room-four R" id="room-4">
+            <div class="room-workers-container"></div>
+            <button class="add-to-room-btn" data-room-id="room-4">
+                <span class="material-symbols-outlined">add</span>
+            </button>
+        </div>
+
+        <div class="room-five R" id="room-5">
+            <div class="room-workers-container"></div>
+            <button class="add-to-room-btn" data-room-id="room-5">
+                <span class="material-symbols-outlined">add</span>
+            </button>
+        </div>
+
+        <div class="room-six R" id="room-6">
+            <div class="room-workers-container"></div>
+            <button class="add-to-room-btn" data-room-id="room-6">
+                <span class="material-symbols-outlined">add</span>
+            </button>
+        </div>
+
+    </div>
+</div>
     </div>
 
     <!-- add worker form -->
@@ -129,6 +166,44 @@
     </div>
 </div>
 
+<div id="assignWorkerModal" class="background-form hidden">
+    <div class="modal-form-container" style="height: auto; max-height: 80vh;">
+        
+        <h3 id="assignModalTitle">Select a Worker</h3>
+        
+        <div id="availableWorkersList" class="panel-workers-list" style="height: 300px; width: 100%;">
+            </div>
+
+        <div class="form-buttons">
+            <button type="button" id="btnCloseAssignModal">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div id="workerDetailsModal" class="background-form hidden">
+    <div class="modal-form-container" style="height: auto;">
+        <h3>Worker Details</h3>
+        
+        <div id="workerDetailContent" style="text-align: center; display: flex; flex-direction: column; gap: 15px; align-items: center;">
+            <img id="detailImage" src="" alt="Worker" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid #6366f1;">
+            
+            <div style="width: 100%;">
+                <h4 id="detailName" style="margin: 0; font-size: 1.2rem;"></h4>
+                <p id="detailRole" style="color: #666; margin: 5px 0;"></p>
+                <p id="detailEmail" style="font-size: 0.9rem;"></p>
+                <p id="detailPhone" style="font-size: 0.9rem;"></p>
+            </div>
+
+            <div id="detailExperiences" style="width: 100%; text-align: left; background: #f9f9f9; padding: 10px; border-radius: 8px; max-height: 150px; overflow-y: auto;">
+                </div>
+        </div>
+
+        <div class="form-buttons" style="margin-top: 20px;">
+            <button type="button" id="btnRemoveFromRoom" style="background-color: #ef4444;">Remove from Room</button>
+            <button type="button" id="btnCloseDetailModal" style="background-color: #ccc; color: #333;">Close</button>
+        </div>
+    </div>
+</div>
     <!-- end of worker form -->
 
     <script src="main.js"></script>
