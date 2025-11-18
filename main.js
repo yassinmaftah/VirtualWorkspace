@@ -247,6 +247,32 @@ document.addEventListener('DOMContentLoaded', () => {
         imagePreviewBox.style.backgroundImage = '';
     }
 
+    // display cart at pannel workers 
+    function showWorkersInPanel() {
+        const workersListPanel = document.querySelector('.panel-workers-list');
+        workersListPanel.innerHTML = '';
+        const workersFromStorage = localStorage.getItem('allWorkers');
+        let workersList = [];
+        if (workersFromStorage) {
+            workersList = JSON.parse(workersFromStorage);
+        }
+        workersList.forEach((worker) => {
+            const card = document.createElement('div');
+            card.classList.add('worker-card');
+            const imageSrc = worker.image ? worker.image : 'user-image.png';
+            card.innerHTML = `
+                <img src="${imageSrc}" alt="Worker Image" class="worker-img">
+                <div class="worker-info">
+                    <p class="worker-name">${worker.name}</p>
+                    <p class="worker-role">${worker.role}</p>
+                    <span class="worker-email" style="display:none">${worker.email}</span>
+                </div>
+                <button class="DelateWorkerCard" data-id="${worker.id}">X</button>
+            `;
+            workersListPanel.appendChild(card);
+        });
+    }
+
     workerForm.addEventListener('submit', (event) => {
         event.preventDefault(); 
         
@@ -308,11 +334,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const workersListString = JSON.stringify(workersList);
             localStorage.setItem('allWorkers', workersListString);
             console.log(workersList);
-                
+            
+            showWorkersInPanel();
             closeandreset();
         } else {
             console.log('Form is invalid. Please check the errors.');
         }
     });
+
+    showWorkersInPanel();
 
 });
