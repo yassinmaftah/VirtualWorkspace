@@ -342,6 +342,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+
+    // dalate at list worker 
+    const workersListPanel = document.querySelector('.panel-workers-list');
+    workersListPanel.addEventListener('click', (event) => {
+        if (event.target.classList.contains('DelateWorkerCard')) {
+            const workerIdToDelete = event.target.getAttribute('data-id');
+            const workersFromStorage = localStorage.getItem('allWorkers');
+            if (workersFromStorage) {
+                let workersList = JSON.parse(workersFromStorage);
+                const updatedList = workersList.filter(worker => worker.id !== workerIdToDelete);
+                localStorage.setItem('allWorkers', JSON.stringify(updatedList));
+                showWorkersInPanel();
+            }
+        }
+    });
     showWorkersInPanel();
 
 });
