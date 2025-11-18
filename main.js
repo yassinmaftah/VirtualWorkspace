@@ -238,6 +238,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    function closeandreset()
+    {
+        FormOf_ADD_worker.classList.add('hidden');
+        workerForm.reset();
+        document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+        document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+        imagePreviewBox.style.backgroundImage = '';
+    }
+
     workerForm.addEventListener('submit', (event) => {
         event.preventDefault(); 
         
@@ -287,8 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             // console.log(newWorker);
-            // closeAndResetModal();
-
+            
             // save all data at local storige 
             const workersFromStorage = localStorage.getItem('allWorkers');
             let workersList = [];
@@ -300,7 +308,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const workersListString = JSON.stringify(workersList);
             localStorage.setItem('allWorkers', workersListString);
             console.log(workersList);
-
+                
+            closeandreset();
         } else {
             console.log('Form is invalid. Please check the errors.');
         }
