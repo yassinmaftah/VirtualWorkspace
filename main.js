@@ -250,10 +250,56 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (isNameValid && isRoleValid && isEmailValid && isPhoneValid && areExperiencesValid && isURLValid) {
             
-            console.log('Form is valid! Submitting data...');
-            
+            // console.log('Form is valid! Submitting data...');
+            const newName = document.getElementById('Input-name').value;
+            const newRole = document.getElementById('Input-role').value;
+            const newImage = document.getElementById('Input-image').value;
+            const newEmail = document.getElementById('Input-email').value;
+            const newPhone = document.getElementById('Input-telephone').value;
+            const newWorkerId = Date.now().toString();
+
+            // get all worker experiences
+
+            const experiencesList = [];
+            const allExperienceBlocks = document.querySelectorAll('.experience-block');
+            allExperienceBlocks.forEach(block => {
+                const title = block.querySelector('.exp-title').value;
+                const startDate = block.querySelector('.exp-start-date').value;
+                const endDate = block.querySelector('.exp-end-date').value;
+
+                const oneExperience = {
+                    title: title,
+                    startDate: startDate,
+                    endDate: endDate
+                };
+                experiencesList.push(oneExperience);
+            });
+
+
+            const newWorker = {
+                id: newWorkerId,
+                name: newName,
+                role: newRole,
+                image: newImage,
+                email: newEmail,
+                phone: newPhone,
+                experiences: experiencesList
+            };
+
+            // console.log(newWorker);
             // closeAndResetModal();
+
             // save all data at local storige 
+            const workersFromStorage = localStorage.getItem('allWorkers');
+            let workersList = [];
+            if (workersFromStorage)
+            {
+                workersList = JSON.parse(workersFromStorage);
+            }
+            workersList.push(newWorker);
+            const workersListString = JSON.stringify(workersList);
+            localStorage.setItem('allWorkers', workersListString);
+            console.log(workersList);
 
         } else {
             console.log('Form is invalid. Please check the errors.');
