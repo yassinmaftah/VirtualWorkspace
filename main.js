@@ -242,8 +242,15 @@ document.addEventListener('DOMContentLoaded', () => {
     {
         FormOf_ADD_worker.classList.add('hidden');
         workerForm.reset();
-        document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
-        document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+
+        const errorInputs = document.querySelectorAll('.input-error');
+        for (let i = 0; i < errorInputs.length; i++) {
+            errorInputs[i].classList.remove('input-error');
+        }
+        const errorMessages = document.querySelectorAll('.error-message');
+        for (let i = 0; i < errorMessages.length; i++) {
+            errorMessages[i].textContent = '';
+        }
         imagePreviewBox.style.backgroundImage = '';
     }
 
@@ -252,11 +259,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const workersListPanel = document.querySelector('.panel-workers-list');
         workersListPanel.innerHTML = '';
         const workersFromStorage = localStorage.getItem('allWorkers');
+        const assignmentsFromStorage = localStorage.getItem('roomAssignments');
+
         let workersList = [];
         if (workersFromStorage) {
             workersList = JSON.parse(workersFromStorage);
         }
+        let assignedWorkerIds = [];
+        if (assignmentsFromStorage) {
+            const assignments = JSON.parse(assignmentsFromStorage);
+            for (let roomName in assignments) {
+                const workersInThisRoom = assignments[roomName];
+                for (let i = 0; i < workersInThisRoom.length; i++) {
+                    assignedWorkerIds.push(workersInThisRoom[i]);
+                }
+            }
+        }
+
+        //console.log(assignedWorkerIds);
+
         workersList.forEach((worker) => {
+            if (assignedWorkerIds.includes(worker.id))
+                return;
+
             const card = document.createElement('div');
             card.classList.add('worker-card');
             const imageSrc = worker.image ? worker.image : 'user-image.png';
@@ -285,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (isNameValid && isRoleValid && isEmailValid && isPhoneValid && areExperiencesValid && isURLValid) {
             
-            // console.log('Form is valid! Submitting data...');
+            // console.log('Form is valid');
             const newName = document.getElementById('Input-name').value;
             const newRole = document.getElementById('Input-role').value;
             const newImage = document.getElementById('Input-image').value;
