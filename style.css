@@ -59,12 +59,16 @@
     /* pointer-events: none; */
     z-index: 0;
 }
-.R{ 
-    color: white; 
+.R {
+    color: white;
     z-index: 1;
     display: flex;
-    justify-content: center; 
+    flex-direction: column; 
+    justify-content: center;
     align-items: center;
+    gap: 5px;
+    padding: 5px;
+    overflow-y: auto;
 }
 
 .R button {
@@ -78,6 +82,55 @@
     transition: all 0.2s;
 }
 
+.room-workers-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+    margin-bottom: 5px; 
+}
+
+.add-to-room-btn {
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px dashed white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: 0.2s;
+}
+
+.add-to-room-btn:hover {
+    background: rgba(255, 255, 255, 0.8);
+    color: black;
+    transform: scale(1.1);
+}
+
+.mini-worker {
+    cursor: pointer;
+    transition: transform 0.2s;
+    position: relative;
+}
+
+.mini-worker:hover {
+    transform: scale(1.2);
+    z-index: 10; 
+}
+
+.mini-worker-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    background-color: #ccc;
+}
 
 .R button:hover {
     background-color: #ffffff;
@@ -89,7 +142,10 @@
 .room-three{ grid-area: room-three; background-color: rgba(199, 24, 24, 0.476);}
 .room-four{ grid-area: room-four; background-color: rgba(225, 240, 16, 0.537);}
 .room-five{ grid-area: room-five; background-color: rgba(65, 255, 12, 0.47);}
-.room-six{ grid-area: room-six; background-color: rgba(20, 44, 197, 0.568);}
+.room-six{ 
+    grid-area: room-six; 
+    background-color: rgba(20, 44, 197, 0.568);
+}
 
 
 
@@ -142,7 +198,7 @@
 
 .worker-card {
     width: 100%; 
-    height: 500px;
+    height: 100px;
     background-color: #ffffff;
     
     border: 1px solid #1557dd;
@@ -178,9 +234,11 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     overflow: hidden;
     line-height: 1.1;
     flex-grow: 1;
+    gap: 10px;
 }
 
 .worker-name {
@@ -194,7 +252,10 @@
 }
 
 .worker-role {
-    color: #6b7280; 
+    color: #ffffff;
+    background-color: #674fd6;
+    border-radius: 23px;
+    padding: 10px;
     margin: 0;
     font-size: 11px;
     white-space: nowrap;
