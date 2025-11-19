@@ -1,44 +1,4 @@
 
-const ZONE_RULES = [
-  {
-    id: 'zone-conference',
-    name: 'Salle de Conférence',
-    nombre_max: 8,
-    allowedRoles: ['Manager', 'Autre', 'Réceptionniste', 'Technicien IT', 'Agent de sécurité', 'Nettoyage'],
-  },
-  {
-    id: 'zone-reception',
-    name: 'Réception',
-    nombre_max: 7,
-    allowedRoles: ['Réceptionniste', 'Manager'],
-  },
-  {
-    id: 'zone-serveurs',
-    name: 'Salle des Serveurs',
-    nombre_max: 3,
-    allowedRoles: ['Technicien IT', 'Manager'],
-  },
-  {
-    id: 'zone-securite',
-    name: 'Salle de Sécurité',
-    nombre_max: 3,
-    allowedRoles: ['Agent de sécurité', 'Manager'],
-  },
-  {
-    id: 'zone-personnel',
-    name: 'Salle du Personnel',
-    nombre_max: 2,
-    allowedRoles: ['Manager', 'Autre', 'Réceptionniste', 'Technicien IT', 'Agent de sécurité', 'Nettoyage'],
-  },
-  {
-    id: 'zone-archives',
-    name: "Salle d'Archives",
-    nombre_max: 4,
-    allowedRoles: ['Manager', 'Autre', 'Réceptionniste', 'Technicien IT', 'Agent de sécurité'],
-  },
-];
-
-
 document.addEventListener('DOMContentLoaded', () => {
 
     const FormOf_ADD_worker = document.getElementById('FormOf_ADD_worker');
@@ -423,6 +383,114 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    const roomRules = {
+        "room-1": ["Receptionnistes", "Manager", "Nettoyage"], // Réception
+        "room-2": ["Techniciens_IT", "Manager", "Nettoyage"],  // Serveurs
+        "room-3": ["sécurité", "Manager"],                     // Sécurité
+        "room-4": ["Manager"],                                 // Bureau Manager
+        "room-5": ["Nettoyage", "Manager", "Techniciens_IT"],  // Archives
+        "room-6": ["Receptionnistes", "Techniciens_IT", "sécurité", "Manager", "Nettoyage"] // Open Space
+    };
+
+    let currentRoomId = null;
+    const assignModal = document.getElementById('assignWorkerModal');
+    const assignListContainer = document.getElementById('availableWorkersList');
+    const btnCloseAssign = document.getElementById('btnCloseAssignModal');
+
+    function openAssignModal(roomId) {
+        currentRoomId = roomId;
+        assignModal.classList.remove('hidden');
+        document.getElementById('assignModalTitle').textContent = `Add to ${roomId}`;
+        Available_worker(roomId);
+    }
+
+    function Available_worker(roomId) {
+        assignListContainer.innerHTML = '';
+        const allWorkers = JSON.parse(localStorage.getItem('allWorkers') || '[]');
+        const assignments = JSON.parse(localStorage.getItem('roomAssignments') || '{}');
+        let busyWorkerIds = []; // take all ids wokers in rooms
+        for (let roomKey in assignments) {
+            const workersInRoom = assignments[roomKey];
+            for (let i = 0; i < workersInRoom.length; i++) {
+                busyWorkerIds.push(workersInRoom[i]);
+            }
+        }
+        const allowedRoles = roomRules[roomId] || [];
+        const eligibleWorkers = allWorkers.filter(worker => {
+            const isNotBusy = !busyWorkerIds.includes(worker.id);
+            const isRoleAllowed = allowedRoles.includes(worker.role);
+            return isNotBusy && isRoleAllowed;
+        });
+        
+
+        if (eligibleWorkers.length === 0) {
+            assignListContainer.innerHTML = '<p style="text-align:center; padding:20px;">No available workers for this room.</p>';
+            return;
+        }
+
+        // console.log(eligibleWorkers);
+        
+        eligibleWorkers.forEach(worker => {
+            const item = document.createElement('div');
+            item.classList.add('worker-card');
+            item.style.cursor = 'pointer';
+            item.style.border = '2px solid #ddd';
+
+            const img = worker.image ? worker.image : 'user-image.png';
+
+            item.innerHTML = `
+                <img src="${img}" class="worker-img">
+                <div class="worker-info">
+                    <p class="worker-name">${worker.name}</p>
+                    <p class="worker-role">${worker.role}</p>
+                </div>
+            `;
+
+            item.addEventListener('click', () => {
+                assignWorkerToRoom(worker.id, currentRoomId);
+            });
+            assignListContainer.appendChild(item);
+        });
+    }
+
+    // if click in card of woker take the work id and room id
+    
+
+
+    const detailsModal = document.getElementById('workerDetailsModal');
+    const btnCloseDetails = document.getElementById('btnCloseDetailModal');
+    const btnRemoveFromRoom = document.getElementById('btnRemoveFromRoom');
+    
+    const detailImage = document.getElementById('detailImage');
+    const detailName = document.getElementById('detailName');
+    const detailRole = document.getElementById('detailRole');
+    const detailEmail = document.getElementById('detailEmail');
+    const detailPhone = document.getElementById('detailPhone');
+    const detailExperiences = document.getElementById('detailExperiences');
+
+    let selectedWorkerIdForRemove = null;
+    let selectedRoomIdForRemove = null;
+
+        // if user click in 
+
+    
+
+    
+
+    document.querySelectorAll('.add-to-room-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const roomId = e.currentTarget.getAttribute('data-room-id');
+            openAssignModal(roomId);
+        });
+    });
+
+    btnCloseAssign.addEventListener('click', () => {
+        assignModal.classList.add('hidden');
+    });
+
+
+        
     showWorkersInPanel();
 
 });
