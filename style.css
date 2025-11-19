@@ -12,12 +12,13 @@
     justify-content: flex-start;
     align-items: center;
     padding: 20px 0; 
+    background-color: #09070767;
 }
 
 .right {
     order: 2;
     width: 90%; 
-    max-height: 50vh;
+    max-height: 90vh;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -69,6 +70,10 @@
     gap: 5px;
     padding: 5px;
     overflow-y: auto;
+}
+
+.R:hover{
+    background-color: #1a181880;
 }
 
 .R button {
@@ -137,14 +142,13 @@
     opacity: 1;
     transform: scale(1.05); 
 }
-.room-one{ grid-area: room-one; background-color: rgba(65, 24, 199, 0.556);}
-.room-two{ grid-area: room-two; background-color: rgba(13, 171, 145, 0.476);}
-.room-three{ grid-area: room-three; background-color: rgba(199, 24, 24, 0.476);}
-.room-four{ grid-area: room-four; background-color: rgba(225, 240, 16, 0.537);}
-.room-five{ grid-area: room-five; background-color: rgba(65, 255, 12, 0.47);}
+.room-one{ grid-area: room-one;}
+.room-two{ grid-area: room-two; }
+.room-three{ grid-area: room-three;}
+.room-four{ grid-area: room-four; }
+.room-five{ grid-area: room-five;}
 .room-six{ 
     grid-area: room-six; 
-    background-color: rgba(20, 44, 197, 0.568);
 }
 
 
@@ -193,18 +197,18 @@
     gap: 8px; 
     width: 80%;
     /* height: 600px; */
-    flex-grow: 1; 
+    flex-grow: 1;
+    padding: 5px;
 }
 
 .worker-card {
     width: 100%; 
     height: 100px;
     background-color: #ffffff;
+    border-color: solid 2px #1e38b9;
     
-    border: 1px solid #1557dd;
     border-radius: 12px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    
     padding: 20px;
     display: flex;
     align-items: center;
@@ -213,10 +217,9 @@
 }
 
 .worker-card:hover {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transform: translateY(-1px);
+    box-shadow: 0 4px 40px rgba(64, 46, 228, 0.1);
     background-color: #f9f9ff;
-    border-color: #a5b4fc;
+    border: 2px solid #1557dd;
 }
 
 /*Worker Image*/
@@ -232,7 +235,7 @@
 /*Worker Info*/
 .worker-info {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     overflow: hidden;
@@ -253,7 +256,7 @@
 
 .worker-role {
     color: #ffffff;
-    background-color: #674fd6;
+    background-color: #6366f1;
     border-radius: 23px;
     padding: 10px;
     margin: 0;
@@ -263,10 +266,18 @@
     text-overflow: ellipsis; 
 }
 
+.worker-role:hover{
+    background-color: #4f46e5;
+}
+
 .worker-email, .worker-phone {
     display: none; 
 }
 
+#btnCloseAssignModal{
+    background-color: #090707;
+    color: white;
+}
 /*buttons delate and edite*/
 
 .DelateWorkerCard{
@@ -357,7 +368,7 @@
 }
 
 .panel-workers-list {
-    scrollbar-width: thin;
+    scrollbar-width:none;
     scrollbar-color: #a5b4fc #f0f0f0;
 }
 
