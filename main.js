@@ -1,3 +1,144 @@
+let list_employee = [
+  {
+    id: 1001,
+    nom: 'Hassan Tawni',
+    role: 'Manager',
+    email: 'hassan.tawni@example.com',
+    tel: '0612345678',
+    photo: 'https://randomuser.me/api/portraits/men/44.jpg',
+    isactive: null,
+    experiences: [
+      {
+        exp_id: 1,
+        company: 'Aziz Adel',
+        role_exp: 'Chef de projet',
+        date_start: '2020-01-15',
+        date_end: '2024-05-30',
+      },
+    ],
+  },
+  {
+    id: 1002,
+    nom: 'Abdo Gouglou',
+    role: 'Réceptionniste',
+    email: 'abdo.gouglou@hotel.fr',
+    tel: '0798765432',
+    photo: 'https://randomuser.me/api/portraits/men/8.jpg',
+    isactive: null,
+    experiences: [
+      {
+        exp_id: 2,
+        company: 'Grand Hotel Paris',
+        role_exp: 'Assistante administrative',
+        date_start: '2022-08-01',
+        date_end: '2023-07-31',
+      },
+    ],
+  },
+  {
+    id: 1003,
+    nom: 'Samir Tawrdi',
+    role: 'Technicien IT',
+    email: 'samir.tawrdi@techcorp.com',
+    tel: '0665544332',
+    photo: 'https://randomuser.me/api/portraits/men/1.jpg',
+    isactive: null,
+    experiences: [
+      {
+        exp_id: 3,
+        company: 'Digital Connect',
+        role_exp: 'Support technique',
+        date_start: '2023-03-10',
+        date_end: '2025-11-18',
+      },
+    ],
+  },
+  {
+    id: 1004,
+    nom: 'Ahmed Somali',
+    role: 'Agent de sécurité',
+    email: 'ahmed.somali@securite.org',
+    tel: '0620304050',
+    photo: 'https://randomuser.me/api/portraits/men/50.jpg',
+    isactive: null,
+    experiences: [],
+  },
+  {
+    id: 1005,
+    nom: 'Khadim Omar',
+    role: 'Autre',
+    email: 'omar.khadim@service.ma',
+    tel: '0651627384',
+    photo: 'https://randomuser.me/api/portraits/men/9.jpg',
+    isactive: null,
+    experiences: [
+      {
+        exp_id: 4,
+        company: 'City Maintenance',
+        role_exp: 'Plombier certifié',
+        date_start: '2018-05-01',
+        date_end: '2020-12-31',
+      },
+      {
+        exp_id: 5,
+        company: 'Global Services',
+        role_exp: "Chef d'équipe",
+        date_start: '2021-01-01',
+        date_end: '2023-01-31',
+      },
+    ],
+  },
+  {
+    id: 1006,
+    nom: 'Dubois Caroline',
+    role: 'Nettoyage',
+    email: 'caro.dubois@clean.fr',
+    tel: '0711223344',
+    photo: 'https://randomuser.me/api/portraits/women/66.jpg',
+    isactive: null,
+    experiences: [],
+  },
+];
+const ZONE_RULES = [
+  {
+    id: 'zone-conference',
+    name: 'Salle de Conférence',
+    nombre_max: 8,
+    allowedRoles: ['Manager', 'Autre', 'Réceptionniste', 'Technicien IT', 'Agent de sécurité', 'Nettoyage'],
+  },
+  {
+    id: 'zone-reception',
+    name: 'Réception',
+    nombre_max: 7,
+    allowedRoles: ['Réceptionniste', 'Manager'],
+  },
+  {
+    id: 'zone-serveurs',
+    name: 'Salle des Serveurs',
+    nombre_max: 3,
+    allowedRoles: ['Technicien IT', 'Manager'],
+  },
+  {
+    id: 'zone-securite',
+    name: 'Salle de Sécurité',
+    nombre_max: 3,
+    allowedRoles: ['Agent de sécurité', 'Manager'],
+  },
+  {
+    id: 'zone-personnel',
+    name: 'Salle du Personnel',
+    nombre_max: 2,
+    allowedRoles: ['Manager', 'Autre', 'Réceptionniste', 'Technicien IT', 'Agent de sécurité', 'Nettoyage'],
+  },
+  {
+    id: 'zone-archives',
+    name: "Salle d'Archives",
+    nombre_max: 4,
+    allowedRoles: ['Manager', 'Autre', 'Réceptionniste', 'Technicien IT', 'Agent de sécurité'],
+  },
+];
+
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const FormOf_ADD_worker = document.getElementById('FormOf_ADD_worker');
