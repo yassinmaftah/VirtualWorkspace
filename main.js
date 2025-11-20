@@ -75,13 +75,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const URLRegex = /^(http|https):\/\/[^ "]+$/;
 
 
-        if (URLinput.value.length == 0)
-        {
-            errorDiv.textContent = 'url input is impty!';
-            URLinput.classList.add('input-error');
-            return false;
-        }
-        else if (!URLRegex.test(URLinput.value))
+        // if (URLinput.value.length == 0)
+        // {
+        //     errorDiv.textContent = 'url input is impty!';
+        //     URLinput.classList.add('input-error');
+        //     return false;
+        // }
+        if (!URLRegex.test(URLinput.value) && URLinput.value.length > 0)
         {
             errorDiv.textContent = 'Invalid URL format (must start with http:// or https://).';
             URLinput.classList.add('input-error');
@@ -309,15 +309,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const isPhoneValid = checkPhone();
         const areExperiencesValid = checkExperiences();
         
-        if (isNameValid && isRoleValid && isEmailValid && isPhoneValid && areExperiencesValid && isURLValid) {
+        if (isNameValid && isRoleValid && isEmailValid && isPhoneValid && areExperiencesValid) {
             
             // console.log('Form is valid');
             const newName = document.getElementById('Input-name').value;
             const newRole = document.getElementById('Input-role').value;
-            const newImage = document.getElementById('Input-image').value;
+            let newImage = document.getElementById('Input-image').value;
             const newEmail = document.getElementById('Input-email').value;
             const newPhone = document.getElementById('Input-telephone').value;
             const newWorkerId = Date.now().toString();
+
+            if (!newImage)
+                newImage = 'https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg';
+
 
             // get all worker experiences
 
@@ -359,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
             workersList.push(newWorker);
             const workersListString = JSON.stringify(workersList);
             localStorage.setItem('allWorkers', workersListString);
-            console.log(workersList);
+            // console.log(workersList);
             
             showWorkersInPanel();
             closeandreset();
