@@ -459,6 +459,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // if click in card of woker take the work id and room id
+    function assignWorkerToRoom(workerId, roomId) 
+    {
+        let assignments = JSON.parse(localStorage.getItem('roomAssignments') || '{}');
+        
+        if (!assignments[roomId]) {
+            assignments[roomId] = [];
+        }
+
+        if (assignments[roomId].length >= 5) {
+            alert("Room is full! (Max 5)");
+            return;
+        }
+
+        assignments[roomId].push(workerId);
+        
+        localStorage.setItem('roomAssignments', JSON.stringify(assignments));
+
+        assignModal.classList.add('hidden');
+
+        showWorkersInPanel();
+    }
     
 
 
