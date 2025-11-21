@@ -527,6 +527,25 @@ document.addEventListener('DOMContentLoaded', () => {
             detailsModal.classList.remove('hidden');
     }
 
+    btnCloseDetails.addEventListener('click', () => {
+        detailsModal.classList.add('hidden');
+    });
+
+    btnRemoveFromRoom.addEventListener('click', () => {
+        if (selectedWorkerIdForRemove && selectedRoomIdForRemove)
+        {
+            let assignments = JSON.parse(localStorage.getItem('roomAssignments') || '{}');
+            if (assignments[selectedRoomIdForRemove])
+            {
+                assignments[selectedRoomIdForRemove] = assignments[selectedRoomIdForRemove].filter(id => id !== selectedWorkerIdForRemove);
+            }
+            localStorage.setItem('roomAssignments', JSON.stringify(assignments));
+
+            detailsModal.classList.add('hidden');
+            renderRoomWorkers();
+            showWorkersInPanel();
+        }
+    });
 
     function renderRoomWorkers() {
             const assignments = JSON.parse(localStorage.getItem('roomAssignments') || '{}');
