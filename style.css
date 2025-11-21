@@ -128,8 +128,8 @@
 }
 
 .mini-worker-img {
-    width: 32px;
-    height: 32px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid white;
@@ -150,7 +150,6 @@
 .room-six{ 
     grid-area: room-six; 
 }
-
 
 
 @media (min-width: 1024px) {
@@ -186,6 +185,10 @@
         padding: 4px 8px;
         border-radius: 8px;
         font-weight: bold;
+    }
+    .mini-worker-img {
+        width: 32px;
+        height: 32px;
     }
 }
 
