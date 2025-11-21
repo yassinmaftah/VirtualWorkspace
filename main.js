@@ -479,6 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
         assignModal.classList.add('hidden');
 
         showWorkersInPanel();
+        renderRoomWorkers();
     }
     
 
@@ -501,7 +502,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     
 
-    
+    function renderRoomWorkers() {
+            const assignments = JSON.parse(localStorage.getItem('roomAssignments') || '{}');
+            const allWorkers = JSON.parse(localStorage.getItem('allWorkers') || '[]');
+
+            document.querySelectorAll('.room-workers-container').forEach(container => {
+                container.innerHTML = ''; 
+                const roomId = container.parentElement.id;
+                const workerIdsInRoom = assignments[roomId] || [];
+
+                workerIdsInRoom.forEach(id => {
+                    const workerData = allWorkers.find(w => w.id === id);
+                    
+                    if (workerData) {
+                        const img = workerData.image ? workerData.image : 'https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg';
+                        
+                        const miniWorkerDiv = document.createElement('div');
+                        miniWorkerDiv.classList.add('mini-worker');
+                        miniWorkerDiv.innerHTML = `
+                            <img src="${img}" class="mini-worker-img">
+                            `;
+                        
+                        miniWorkerDiv.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            openWorkerDetails(workerData, roomId);
+                        });
+
+                        container.appendChild(miniWorkerDiv);
+                    }
+                });
+            });
+        }
+
 
     document.querySelectorAll('.add-to-room-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -515,7 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-        
+    renderRoomWorkers();
     showWorkersInPanel();
 
 });
