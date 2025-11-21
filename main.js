@@ -389,12 +389,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const roomRules = {
-        "conference": ["Receptionnistes", "Manager", "Nettoyage"], // Réception
-        "Archive": ["Techniciens_IT", "Manager", "Nettoyage"],  // Serveurs
-        "securite": ["sécurité", "Manager"],                     // Sécurité
-        "reception": ["Manager"],                                 // Bureau Manager
-        "personnel": ["Nettoyage", "Manager", "Techniciens_IT"],  // Archives
-        "serveurs": ["Receptionnistes", "Techniciens_IT", "sécurité", "Manager", "Nettoyage"] // Open Space
+        "conference": ["Receptionnistes", "Manager", "Nettoyage"],
+        "Archive": ["Manager", "Techniciens_IT", "sécurité", "Receptionnistes"],
+        "securite": ["sécurité", "Manager"],
+        "reception": ["Receptionnistes","Manager"],
+        "personnel": ["Nettoyage", "Manager", "Techniciens_IT", "sécurité", "Receptionnistes"],
+        "serveurs": ["Techniciens_IT","Manager"]
     };
 
     let currentRoomId = null;
