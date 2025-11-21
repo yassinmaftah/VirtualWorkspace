@@ -500,7 +500,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // if user click in 
 
-    
+    function openWorkerDetails(worker, roomId) {
+            const img = worker.image ? worker.image : 'https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg';
+            detailImage.src = img;
+            detailName.textContent = worker.name;
+            detailRole.textContent = worker.role;
+            detailEmail.textContent = worker.email ? `${worker.email}` : '';
+            detailPhone.textContent = worker.phone ? `${worker.phone}` : '';
+
+            detailExperiences.innerHTML = '<strong>Experiences:</strong>';
+            if (worker.experiences && worker.experiences.length > 0) {
+                worker.experiences.forEach(exp => {
+                    detailExperiences.innerHTML += `
+                        <div class="detail-exp-item">
+                            - ${exp.title} (${exp.startDate} to ${exp.endDate})
+                        </div>
+                    `;
+                });
+            } else {
+                detailExperiences.innerHTML += '<p>No experiences recorded.</p>';
+            }
+
+            selectedWorkerIdForRemove = worker.id;
+            selectedRoomIdForRemove = roomId;
+
+            detailsModal.classList.remove('hidden');
+    }
+
 
     function renderRoomWorkers() {
             const assignments = JSON.parse(localStorage.getItem('roomAssignments') || '{}');
