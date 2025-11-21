@@ -389,12 +389,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const roomRules = {
-        "room-1": ["Receptionnistes", "Manager", "Nettoyage"], // Réception
-        "room-2": ["Techniciens_IT", "Manager", "Nettoyage"],  // Serveurs
-        "room-3": ["sécurité", "Manager"],                     // Sécurité
-        "room-4": ["Manager"],                                 // Bureau Manager
-        "room-5": ["Nettoyage", "Manager", "Techniciens_IT"],  // Archives
-        "room-6": ["Receptionnistes", "Techniciens_IT", "sécurité", "Manager", "Nettoyage"] // Open Space
+        "conference": ["Receptionnistes", "Manager", "Nettoyage"], // Réception
+        "Archive": ["Techniciens_IT", "Manager", "Nettoyage"],  // Serveurs
+        "securite": ["sécurité", "Manager"],                     // Sécurité
+        "reception": ["Manager"],                                 // Bureau Manager
+        "personnel": ["Nettoyage", "Manager", "Techniciens_IT"],  // Archives
+        "serveurs": ["Receptionnistes", "Techniciens_IT", "sécurité", "Manager", "Nettoyage"] // Open Space
     };
 
     let currentRoomId = null;
@@ -569,7 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             `;
                         
                         miniWorkerDiv.addEventListener('click', (e) => {
-                            e.stopPropagation();
+                            // e.stopPropagation();
                             openWorkerDetails(workerData, roomId);
                         });
 
