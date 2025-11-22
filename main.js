@@ -462,13 +462,35 @@ document.addEventListener('DOMContentLoaded', () => {
     function assignWorkerToRoom(workerId, roomId) 
     {
         let assignments = JSON.parse(localStorage.getItem('roomAssignments') || '{}');
-        
+
+
         if (!assignments[roomId]) {
             assignments[roomId] = [];
         }
 
-        if (assignments[roomId].length >= 5) {
-            alert("Room is full! (Max 5)");
+        let maxCapacity = 5;
+
+        if (roomId === 'conference') { 
+            maxCapacity = 8;
+        } 
+        else if (roomId === 'Archive') { 
+            maxCapacity = 3; 
+        } 
+        else if (roomId === 'securite') { 
+            maxCapacity = 3;
+        } 
+        else if (roomId === 'reception') { 
+            maxCapacity = 10; 
+        } 
+        else if (roomId === 'personnel') { 
+            maxCapacity = 3;
+        } 
+        else if (roomId === 'serveurs') { 
+            maxCapacity = 3; 
+        }
+
+        if (assignments[roomId].length >= maxCapacity) {
+            alert(`Room is full! This room takes only ${maxCapacity} people.`);
             return;
         }
 
@@ -547,6 +569,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    function room_background(roomId) {
+        if (roomId === 'conference' || roomId === 'personnel') {
+            return; 
+        }
+
+        const roomDiv = document.getElementById(roomId);
+        
+        const assignments = JSON.parse(localStorage.getItem('roomAssignments') || '{}');
+        const count = assignments[roomId] ? assignments[roomId].length : 0;
+
+        if (count === 0) {
+            roomDiv.style.backgroundColor = "rgba(231, 77, 60, 0.34)"; 
+        } else {
+            roomDiv.style.backgroundColor = "rgba(46, 204, 112, 0.3)"; 
+        }
+    }
+
     function renderRoomWorkers() {
             const assignments = JSON.parse(localStorage.getItem('roomAssignments') || '{}');
             const allWorkers = JSON.parse(localStorage.getItem('allWorkers') || '[]');
@@ -555,6 +594,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 container.innerHTML = ''; 
                 const roomId = container.parentElement.id;
                 const workerIdsInRoom = assignments[roomId] || [];
+
+                room_background(roomId);
 
                 workerIdsInRoom.forEach(id => {
                     const workerData = allWorkers.find(w => w.id === id);
@@ -569,7 +610,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             `;
                         
                         miniWorkerDiv.addEventListener('click', (e) => {
-                            // e.stopPropagation();
                             openWorkerDetails(workerData, roomId);
                         });
 
