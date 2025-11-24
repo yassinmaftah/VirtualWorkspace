@@ -151,6 +151,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const titleInput = block.querySelector('.exp-title');
             const startDateInput = block.querySelector('.exp-start-date');
             const endDateInput = block.querySelector('.exp-end-date');
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const endDate = new Date(endDateInput.value);
             
             // display error msg
             const titleErrorDiv = block.querySelector('.error-message');
@@ -176,6 +180,12 @@ document.addEventListener('DOMContentLoaded', () => {
             else if (new Date(endDateInput.value) < new Date(startDateInput.value)) {
                 dateErrorDiv.textContent = 'End day cannot be before Start day.';
                 startDateInput.classList.add('input-error');
+                endDateInput.classList.add('input-error');
+                allExperiencesAreValid = false;
+            }
+            else if (endDate >= today)
+            {
+                dateErrorDiv.textContent = 'Experience needs to be completed (Past date only).';
                 endDateInput.classList.add('input-error');
                 allExperiencesAreValid = false;
             } 
@@ -253,6 +263,8 @@ document.addEventListener('DOMContentLoaded', () => {
             errorMessages[i].textContent = '';
         }
         imagePreviewBox.style.backgroundImage = '';
+        experiencesContainer.innerHTML = '';
+        experienceCounter = 0;
     }
 
     // display cart at pannel workers 
@@ -285,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const card = document.createElement('div');
             card.classList.add('worker-card');
-            const imageSrc = worker.image ? worker.image : 'user-image.png';
+            const imageSrc = worker.image ? worker.image : 'https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg';
             card.innerHTML = `
                 <img src="${imageSrc}" alt="Worker Image" class="worker-img">
                 <div class="worker-info">
@@ -622,6 +634,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.add-to-room-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
+            // console.log(e.target);
             const roomId = e.currentTarget.getAttribute('data-room-id');
             openAssignModal(roomId);
         });
