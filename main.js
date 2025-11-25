@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     addExperienceBtn.addEventListener('click', () => {
         experienceCounter++; 
-
+            
         const newBlock = document.createElement('div');
         newBlock.classList.add('experience-block');
         
@@ -365,7 +365,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // console.log(newWorker);
             
-            // save all data at local storige 
             const workersFromStorage = localStorage.getItem('allWorkers');
             let workersList = [];
             if (workersFromStorage)
@@ -425,7 +424,7 @@ document.addEventListener('DOMContentLoaded', () => {
         assignListContainer.innerHTML = '';
         const allWorkers = JSON.parse(localStorage.getItem('allWorkers') || '[]');
         const assignments = JSON.parse(localStorage.getItem('roomAssignments') || '{}');
-        let busyWorkerIds = []; // take all ids wokers in rooms
+        let busyWorkerIds = []; 
         for (let roomKey in assignments) {
             const workersInRoom = assignments[roomKey];
             for (let i = 0; i < workersInRoom.length; i++) {
@@ -453,7 +452,7 @@ document.addEventListener('DOMContentLoaded', () => {
             item.style.cursor = 'pointer';
             item.style.border = '2px solid #ddd';
 
-            const img = worker.image ? worker.image : 'user-image.png';
+            const img = worker.image ? worker.image : 'https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg';
 
             item.innerHTML = `
                 <img src="${img}" class="worker-img">
@@ -470,7 +469,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // if click in card of woker take the work id and room id
     function assignWorkerToRoom(workerId, roomId) 
     {
         let assignments = JSON.parse(localStorage.getItem('roomAssignments') || '{}');
