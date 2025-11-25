@@ -1,4 +1,5 @@
-
+const DataWorkers = JSON.parse(localStorage.getItem("allWorkers"));
+// console.log(DataWorkers);
 document.addEventListener('DOMContentLoaded', () => {
 
     const FormOf_ADD_worker = document.getElementById('FormOf_ADD_worker');
@@ -468,7 +469,7 @@ document.addEventListener('DOMContentLoaded', () => {
             assignListContainer.appendChild(item);
         });
     }
-
+    
     function assignWorkerToRoom(workerId, roomId) 
     {
         let assignments = JSON.parse(localStorage.getItem('roomAssignments') || '{}');
@@ -584,12 +585,33 @@ document.addEventListener('DOMContentLoaded', () => {
             return; 
         }
 
+        let maxCapacity = 5;
+
+        if (roomId === 'conference') { 
+            maxCapacity = 8;
+        } 
+        else if (roomId === 'Archive') { 
+            maxCapacity = 3; 
+        } 
+        else if (roomId === 'securite') { 
+            maxCapacity = 3;
+        } 
+        else if (roomId === 'reception') { 
+            maxCapacity = 10; 
+        } 
+        else if (roomId === 'personnel') { 
+            maxCapacity = 3;
+        } 
+        else if (roomId === 'serveurs') { 
+            maxCapacity = 3; 
+        }
+
         const roomDiv = document.getElementById(roomId);
         
         const assignments = JSON.parse(localStorage.getItem('roomAssignments') || '{}');
         const count = assignments[roomId] ? assignments[roomId].length : 0;
 
-        if (count === 0) {
+        if (count === maxCapacity) {
             roomDiv.style.backgroundColor = "rgba(231, 77, 60, 0.34)"; 
         } else {
             roomDiv.style.backgroundColor = "rgba(46, 204, 112, 0.3)"; 
