@@ -308,6 +308,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <button class="DelateWorkerCard" data-id="${worker.id}">X</button>
             `;
+            card.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('DelateWorkerCard')) {
+                    openWorkerDetails(worker, null); 
+                }
+            });
             workersListPanel.appendChild(card);
         });
     }
@@ -484,7 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (roomId === 'conference') { 
             maxCapacity = 8;
         } 
-        else if (roomId === 'Archive') { 
+        else if (roomId === 'Archive') {
             maxCapacity = 3; 
         } 
         else if (roomId === 'securite') { 
@@ -541,6 +546,11 @@ document.addEventListener('DOMContentLoaded', () => {
             detailEmail.textContent = worker.email ? `${worker.email}` : '';
             detailPhone.textContent = worker.phone ? `${worker.phone}` : '';
 
+            const btndelatefromroom = document.getElementById('btnRemoveFromRoom');
+            if (roomId == null)
+                btndelatefromroom.classList.add('hidden');
+            else
+                btndelatefromroom.classList.remove('hidden');
             detailExperiences.innerHTML = '<strong>Experiences:</strong>';
             if (worker.experiences && worker.experiences.length > 0) {
                 worker.experiences.forEach(exp => {
@@ -582,6 +592,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function room_background(roomId) {
         if (roomId === 'conference' || roomId === 'personnel') {
+            const roomDiv = document.getElementById(roomId);
+            if (roomDiv) 
+                roomDiv.style.backgroundColor = '';
             return; 
         }
 
@@ -611,10 +624,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const assignments = JSON.parse(localStorage.getItem('roomAssignments') || '{}');
         const count = assignments[roomId] ? assignments[roomId].length : 0;
 
+        console.log(maxCapacity, roomId, count);
         if (count === maxCapacity) {
-            roomDiv.style.backgroundColor = "rgba(231, 77, 60, 0.34)"; 
+            roomDiv.style.backgroundColor = "rgba(217, 38, 18, 0.47)"; 
         } else {
-            roomDiv.style.backgroundColor = "rgba(46, 204, 112, 0.3)"; 
+            roomDiv.style.backgroundColor = "rgba(113, 205, 32, 0.3)"; 
         }
     }
 
